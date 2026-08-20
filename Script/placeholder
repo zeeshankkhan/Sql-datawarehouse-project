@@ -1,1 +1,11 @@
+-- Use the New Database project
+USE Datawarehouse;
 
+-- Drop and recreate the database "Datawarehouse" 
+If EXIST ( SELECT 1 FROM sys.databases WHERE name="Datawarehouse" )
+-- Create Schemas 
+CREATE SCHEMA bornze;
+GO
+CREATE SCHEMA Silver;
+GO 
+CREATE SCHEMA Gold;
