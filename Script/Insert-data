@@ -1,0 +1,68 @@
+USE [Datawarehouse]
+GO
+/****** Object:  StoredProcedure [bornze].[load_bornze]    Script Date: 8/20/2026 4:55:23 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER   PROCEDURE [bornze].[load_bornze] AS
+BEGIN
+ BEGIN TRY
+TRUNCATE TABLE bornze.crm_cust_info;
+BULK INSERT bornze.crm_cust_info
+FROM 'C:\Users\zeesh\Documents\sql-data-warehouse-project-main\sql-data-warehouse-project-main\datasets\source_crm\cust_info.csv'
+WITH(
+   FIRSTROW = 2,
+   FIELDTERMINATOR = ',',
+   TABLOCK
+);
+
+TRUNCATE TABLE bornze.crm_prd_info;
+BULK INSERT bornze.crm_prd_info
+FROM 'C:\Users\zeesh\Documents\sql-data-warehouse-project-main\sql-data-warehouse-project-main\datasets\source_crm\prd_info.csv'
+WITH(
+   FIRSTROW = 2,
+   FIELDTERMINATOR =',',
+   TABLOCK
+);
+
+TRUNCATE TABLE bornze.crm_sales_details;
+BULK INSERT bornze.crm_sales_details
+FROM 'C:\Users\zeesh\Documents\sql-data-warehouse-project-main\sql-data-warehouse-project-main\datasets\source_crm\sales_details.csv'
+WITH(
+  FIRSTROW = 2,
+  FIELDTERMINATOR = ',',
+  TABLOCK
+);
+
+TRUNCATE TABLE bornze.erp_cust_az12;
+BULK INSERT bornze.erp_cust_az12
+FROM 'C:\Users\zeesh\Documents\sql-data-warehouse-project-main\sql-data-warehouse-project-main\datasets\source_erp\CUST_AZ12.csv'
+WITH(
+   FIRSTROW = 2,
+   FIELDTERMINATOR = ',',
+   TABLOCK
+);
+
+TRUNCATE TABLE bornze.erp_loc_a101;
+BULK INSERT bornze.erp_loc_a101
+FROM 'C:\Users\zeesh\Documents\sql-data-warehouse-project-main\sql-data-warehouse-project-main\datasets\source_erp\LOC_A101.csv'
+WITH(
+   FIRSTROW = 2,
+   FIELDTERMINATOR = ',',
+   TABLOCK
+);
+
+TRUNCATE TABLE bornze.erp_px_g1v2;
+BULK INSERT bornze.erp_px_g1v2
+FROM 'C:\Users\zeesh\Documents\sql-data-warehouse-project-main\sql-data-warehouse-project-main\datasets\source_erp\PX_CAT_G1v2.csv'
+WITH(
+   FIRSTROW = 2,
+   FIELDTERMINATOR = ',',
+   TABLOCK
+);
+ END TRY
+  BEGIN CATCH
+ PRINT 'ERROR Message' + ERROR_MESSAGE();
+  END CATCH
+ END
